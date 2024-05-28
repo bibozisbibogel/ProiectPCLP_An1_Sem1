@@ -1,0 +1,216 @@
+/*
+	Vom nota cu ,,='' in loc de <- pentru atribuirea valorilor la variabile.
+*/
+DECLARE comanda[DIM]
+DECLARE nr_vaccinari_utilizate = 0
+DECLARE nr_candidati = 0
+DECLARE nume_candidat[DIM]
+DECLARE baza_de_date_candidati[DIM][DIM]
+DECLARE data[DIM][15]
+DECLARE ora[DIM][10]
+DECLARE locatie[DIM][30]
+DECLARE check_date[15]
+DECLARE rapel_candidat[DIM][15]
+DECLARE check_candidate[15]
+DECLARE cauta_candidat[15]
+DECLARE tip_vaccin[DIM][30]
+DECLARE look_for_candidate[30]
+DECLARE numar_vaccinari_cu_Pfizer = 0
+DECLARE numar_vaccinari_cu_Moderna = 0
+DECLARE numar_vaccinari_cu_AstraZeneca = 0
+DECLARE numar_vaccinari_cu_Sinopharm = 0
+DECLARE numar_vaccinari_cu_CoronaVac = 0
+DECLARE numar_vaccinari_cu_Janssen = 0
+DECLARE numar_vaccinari_cu_Sputnik = 0
+DECLARE cauta_vaccin[30]
+
+FUNCTION afisare_candidati(baza_de_date_candidati[DIM][DIM], nr_candidati)
+    FOR numarul_candidatului = 1 TO nr_candidati
+        PRINT baza_de_date_candidati[numarul_candidatului]
+    END FOR
+END FUNCTION
+FUNCTION cautare_candidat(look_for_candidate, baza_de_date_candidati[DIM][DIM], data[DIM][15], ora[DIM][10], locatie[DIM][30], tip_vaccin[DIM][30], rapel_candidat[DIM][15], nr_candidati)
+    FOR numarul_candidatului = 1 TO nr_candidati
+        IF baza_de_date_candidati[numarul_candidatului] == look_for_candidate
+            PRINT "Candidatul se va vaccina pe data de ", data[numarul_candidatului]
+            PRINT "Ora la care se va vaccina este: ", ora[numarul_candidatului]
+            PRINT "Locul unde va avea loc vaccinarea este: ", locatie[numarul_candidatului]
+            PRINT "Tipul vaccinului este: ", tip_vaccin[numarul_candidatului]
+            PRINT "Data pe care isi va face rapelul este: ", rapel_candidat[numarul_candidatului]
+        END IF
+    END FOR
+    PRINT
+END FUNCTION
+FUNCTION tiparire_bon_vaccinare(nume_candidat, baza_de_date_candidati[DIM][DIM], data[DIM][15], ora[DIM][10], locatie[DIM][30], tip_vaccin[DIM][30], nr_candidati)
+    PRINT "Vom tipări bonul pentru ", nume_candidat, ":"
+    FOR numarul_candidatului = 1 TO nr_candidati
+        IF baza_de_date_candidati[numarul_candidatului] == nume_candidat
+            PRINT "Data la care a fost efectuată vaccinarea este: ", data[numarul_candidatului]
+            PRINT "Ora la care a fost efectuată vaccinarea este: ", ora[numarul_candidatului]
+            PRINT "Locația unde s-a efectuat vaccinul este: ", locatie[numarul_candidatului]
+            PRINT "Tipul vaccinului utilizat este: ", tip_vaccin[numarul_candidatului]
+        END IF
+    END FOR
+    PRINT
+END FUNCTION
+FUNCTION cautare_numar_vaccinari(tip_vaccin, cauta_vaccin, numar_vaccinari_cu_Pfizer, numar_vaccinari_cu_Moderna, numar_vaccinari_cu_CoronaVac, numar_vaccinari_cu_AstraZeneca, numar_vaccinari_cu_Sputnik, numar_vaccinari_cu_Sinopharm, numar_vaccinari_cu_Janssen)
+    gasit_vaccin = 0
+    FOR numarul_candidatului = 1 TO nr_candidati AND gasit_vaccin == 0
+        IF tip_vaccin[numarul_candidatului] == cauta_vaccin
+            gasit_vaccin = 1
+            PRINT "Vaccinul cunoscut cu numele de ", cauta_vaccin, " a fost efectuat la un număr de "
+            IF cauta_vaccin == "Pfizer"
+                PRINT numar_vaccinari_cu_Pfizer
+            ELSE IF cauta_vaccin == "Moderna"
+                PRINT numar_vaccinari_cu_Moderna
+            ELSE IF cauta_vaccin == "CoronaVac"
+                PRINT numar_vaccinari_cu_CoronaVac
+            ELSE IF cauta_vaccin == "AstraZeneca"
+                PRINT numar_vaccinari_cu_AstraZeneca
+            ELSE IF cauta_vaccin == "Sputnik-V" OR cauta_vaccin == "Gam-Covid-Vac"
+                PRINT numar_vaccinari_cu_Sputnik
+            ELSE IF cauta_vaccin == "Sinopharm"
+                PRINT numar_vaccinari_cu_Sinopharm
+            ELSE IF cauta_vaccin == "Janssen" OR cauta_vaccin == "Johnson" OR cauta_vaccin == "Johnson & Johnson"
+                PRINT numar_vaccinari_cu_Janssen
+            END IF
+            PRINT " candidați"
+        END IF
+    END FOR
+    PRINT
+END FUNCTION
+FUNCTION calculare_total_vaccinuri_utilizate(rapel_candidat[DIM][15], nr_candidati, nr_vaccinari_utilizate)
+    FOR numarul_candidatului = 1 TO nr_candidati
+        IF LENGTH(rapel_candidat[numarul_candidatului]) > 9
+            nr_vaccinari_utilizate = nr_vaccinari_utilizate + 1
+        END IF
+    END FOR
+    nr_total_vaccinuri_utilizate = nr_vaccinari_utilizate + nr_candidati
+    RETURN nr_total_vaccinuri_utilizate
+END FUNCTION
+PRINT "Introduceti prima comanda: "
+INPUT comanda
+
+WHILE comanda != "STOP"
+    IF comanda == "inregistrare"
+        nr_candidati++
+        PRINT "Introduceti numele: "
+        INPUT baza_de_date_candidati[nr_candidati]
+        last_character = LENGTH(baza_de_date_candidati[nr_candidati]) - 1
+        baza_de_date_candidati[nr_candidati][last_character] = NULL
+        PRINT "Introduceti data vaccinarii: "
+        INPUT data[nr_candidati]
+        last_character2 = LENGTH(data[nr_candidati]) - 1
+        data[nr_candidati][last_character2] = NULL
+        PRINT "Introduceti ora vaccinarii: "
+        INPUT ora[nr_candidati]
+        last_character3 = LENGTH(ora[nr_candidati]) - 1
+        ora[nr_candidati][last_character3] = NULL
+        PRINT "Introduceti locatia unde se va efectua vaccinul: "
+        INPUT locatie[nr_candidati]
+        last_character4 = LENGTH(locatie[nr_candidati]) - 1
+        locatie[nr_candidati][last_character4] = NULL
+        PRINT "Introduceti tipul de vaccin care se va utiliza: "
+        INPUT tip_vaccin[nr_candidati]
+        last_character_forgotnumber = LENGTH(tip_vaccin[nr_candidati]) - 1
+        tip_vaccin[nr_candidati][last_character_forgotnumber] = NULL
+
+        IF tip_vaccin[nr_candidati] == "Pfizer"
+            numar_vaccinari_cu_Pfizer++
+        ELSE IF tip_vaccin[nr_candidati] == "Moderna"
+            numar_vaccinari_cu_Moderna++
+        ELSE IF tip_vaccin[nr_candidati] == "CoronaVac"
+            numar_vaccinari_cu_CoronaVac++
+        ELSE IF tip_vaccin[nr_candidati] == "AstraZeneca"
+            numar_vaccinari_cu_AstraZeneca++
+        ELSE IF tip_vaccin[nr_candidati] == "Sputnik-V" OR tip_vaccin[nr_candidati] == "Gam-Covid-Vac"
+            numar_vaccinari_cu_Sputnik++
+        ELSE IF tip_vaccin[nr_candidati] == "Sinopharm"
+            numar_vaccinari_cu_Sinopharm++
+        ELSE IF tip_vaccin[nr_candidati] == "Janssen" OR tip_vaccin[nr_candidati] == "Johnson" OR tip_vaccin[nr_candidati] == "Johnson & Johnson"
+		numar_vaccinari_cu_Janssen++
+        END IF
+
+    END IF
+IF comanda == "time"
+        PRINT "Introduceti data vaccinarii: "
+        INPUT check_date
+        last_character5 = LENGTH(check_date) - 1
+        check_date[last_character5] = NULL
+        found = 0
+
+        FOR numarul_candidatului = 1 TO nr_candidati
+            IF data[numarul_candidatului] == check_date
+                found = 1
+                PRINT "Pe data de ", check_date
+                PRINT " se va vaccina persoana cu numele ", baza_de_date_candidati[numarul_candidatului]
+                PRINT " la ora ", ora[numarul_candidatului]
+                PRINT " , iar vaccinul se va efectua la locatia: ", locatie[numarul_candidatului]
+            END IF
+        END FOR
+
+        IF found == 0
+            PRINT "Pe data de ", check_date
+            PRINT " nu se va vaccina nimeni"
+        END IF
+
+    END IF
+IF comanda == "baza"
+        PRINT "In total avem un numar de ", nr_candidati
+        PRINT " candidati"
+        PRINT ", iar persoanele inregistrate in baza de date sunt:"
+        CALL afisare_candidati(baza_de_date_candidati, nr_candidati)
+    END IF
+IF comanda == "rapel"
+        FOR numarul_candidatului = 1 TO nr_candidati
+            PRINT "Introduceti data cand se va efectua rapelul pentru candidatul cu numarul ", numarul_candidatului, ":"
+            INPUT rapel_candidat[numarul_candidatului]
+            last_character6 = LENGTH(rapel_candidat[numarul_candidatului]) - 1
+            rapel_candidat[numarul_candidatului][last_character6] = NULL
+            PRINT
+        END FOR
+    END IF
+IF comanda == "anunta"
+        PRINT "Introduceti numele candidatului:"
+        INPUT check_candidate
+        last_character7 = LENGTH(check_candidate) - 1
+        check_candidate[last_character7] = NULL
+        PRINT
+
+        FOR numarul_candidatului = 1 TO nr_candidati
+            IF baza_de_date_candidati[numarul_candidatului] == check_candidate
+                PRINT "Candidatul va efectua rapelul pe data de: ", rapel_candidat[numarul_candidatului]
+            END IF
+        END FOR
+
+        PRINT
+    END IF
+IF comanda == "search"
+    PRINT "Introduceti numele candidatului pe care-l cautati: "
+    INPUT look_for_candidate
+    last_character_search = LENGTH(look_for_candidate) - 1
+    look_for_candidate[last_character_search] = NULL
+    CALL cautare_candidat(look_for_candidate, baza_de_date_candidati, data, ora, locatie, tip_vaccin, rapel_candidat, nr_candidati)
+
+IF comanda == "tiparire"
+    PRINT "Pentru ce persoana doriti sa tipariti bonul de vaccinare?"
+    INPUT nume_candidat
+    last_character_idk = LENGTH(nume_candidat) - 1
+    nume_candidat[last_character_idk] = NULL
+    CALL tiparire_bon_vaccinare(nume_candidat, baza_de_date_candidati, data, ora, locatie, tip_vaccin, nr_candidati
+IF comanda == "vaccinuri"
+    PRINT "Introduceti tipul de vaccin pe care doriti sa-l cautati: "
+    INPUT cauta_vaccin
+    last_character_numaistiucare = LENGTH(cauta_vaccin) - 1
+    cauta_vaccin[last_character_numaistiucare] = NULL
+    CALL cautare_numar_vaccinari(tip_vaccin, cauta_vaccin, numar_vaccinari_cu_Pfizer, numar_vaccinari_cu_Moderna, numar_vaccinari_cu_CoronaVac, numar_vaccinari_cu_AstraZeneca, numar_vaccinari_cu_Sputnik, numar_vaccinari_cu_Sinopharm, numar_vaccinari_cu_Janssen)
+IF comanda == "total"
+    PRINT "Numărul de vaccinuri utilizate în total este: "
+    nr_total_vaccinuri = CALL calculare_total_vaccinuri_utilizate(rapel_candidat, nr_candidati, nr_vaccinari_utilizate)
+    PRINT nr_total_vaccinuri
+    PRINT
+ENDIF
+PRINT "Introduceti urmatoarea comanda: "
+    INPUT comanda
+    GETCHAR()
+RETURN 0

@@ -1,0 +1,103 @@
+		INPUTS & OUTPUTS:
+
+
+1. INPUT:
+
+inregistrare ///inregistram prima persoana in baza de date
+Stoian Cristian Georgian
+01.01.2024
+11:38
+Craiova
+Moderna
+rapel ///atribuim o data de efectuare a rapelului pentru persoanele aflate in baza de date (adica doar prima persoana)
+02.01.2024
+inregistrare ///inregistram a doua persoana in baza de date
+Zugravu Cristina Vasilica
+03.01.2024
+11:39
+Craiova
+Pfizer
+total ///afisarea numarului de vaccinuri utilizate 
+
+OUTPUT:
+3
+
+INPUT: STOP ///oprirea programului
+
+2. INPUT:
+
+inregistrare ///inregistram prima persoana in baza de date
+Stoian Cristian Georgian
+01.01.2024
+11:43
+Craiova
+Pfizer
+inregistrare ///inregistram a doua persoana in baza de date
+Zugravu Cristina Vasilica
+02.01.2024
+11:44
+Craiova
+Moderna
+rapel ///atribuim persoanelor din baza de date, date cand vor efectua rapelul
+03.01.2024
+04.01.2024
+anunta ///anuntam persoana aleasa, spunandu-i pe ce data va efectua rapelul
+Zugravu Cristina Vasilica
+OUTPUT:
+04.01.2024
+INPUT:
+time ///verificam daca o persoana s-a vaccinat pe o data introdusa de la tastatura
+01.01.2024
+OUTPUT:
+Pe data de 01.01.2024 se va vaccina persoana cu numele Stoian Cristian Georgian la ora 11:43, iar vaccinul se va efectua la locatia: Craiova
+INPUT: STOP ///oprirea programului
+
+3. INPUT:
+
+inregistrare ///inregistram prima persoana in baza de date
+Zugravu Cristina Vasilica
+01.01.2024
+11:49
+Craiova
+Pfizer
+inregistrare ///inregistram a doua persoana in baza de date
+Stoian Cristian Georgian
+11:59
+Craiova
+Moderna
+search ///cautam o persoana in baza de date
+Stoian Cristian Georgian
+OUTPUT:
+Candidatul se va vaccina pe data de 02.01.2024
+Ora la care se va vaccina este: 11:59
+Locatia unde va avea loc vaccinarea este: Craiova
+Tipul vaccinului este: Moderna
+Data pe care isi va face rapelul este: (aici nu afiseaza nimic pentru ca momentan nu i-am atribuit o data de rapel cu comanda rapel)
+INPUT:
+tiparire ///vom tipari bonul de vaccinare pentru o persoana aleasa
+Zugravu Cristina Vasilica
+OUTPUT:
+Vom tipari bonul pentru Zugravu Cristina Vasilica:
+Data la care a fost efectuata vaccinarea este: 01.01.2024
+Ora la care a fost efectuata vaccinarea este: 11:49
+Locatia unde s-a efectuat vaccinul este: Craiova
+Tipul vaccinului utilizat este: Pfizer
+INPUT:
+rapel ///le atribuim date cand isi vor efectua rapelul
+03.01.2024
+04.01.2024
+total ///afisam numarul de vaccinuri utilizate
+OUTPUT:
+Numarul de vaccinuri utilizate in total este: 4
+INPUT:
+vaccinuri ///verificam de cate ori s-a efectuat un vaccin ales (ex: Pfizer/Moderna/Janssen/etc)
+Moderna
+OUTPUT:
+Vaccinul cunoscut cu numele de Moderna a fost efectuat la un numar de 1 candidati
+INPUT:
+vaccinuri
+Moderna
+OUTPUT:
+Vaccinul cunoscut cu numele de Moderna a fost efectuat la un numar de 1 candidati
+INPUT:
+STOP ///oprirea programului

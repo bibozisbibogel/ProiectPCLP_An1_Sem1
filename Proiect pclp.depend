@@ -1,0 +1,9 @@
+# depslib dependency file v1.0
+1704101643 source:d:\informatica\proiect pclp ianuarie\proiect pclp\proiect pclp.c
+	<stdio.h>
+	<stdlib.h>
+
+1704105243 source:d:\informatica\proiecte c\proiectpclp\proiect pclp.c
+	<stdio.h>
+	<stdlib.h>
+
